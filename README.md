@@ -38,6 +38,19 @@ It generates a `XXXBuilders` class where `XXX` is your Ecore package name, and f
 
 It uses JMerge so you are able to customize changing the `@generated` annotations.
 
+## Goals I pursued when trying this
+
+I wanted to be able to:
+- to be able to leverage my IDE to search for reference and easily get for instance, "all the colors I used" or "all the AQL expressions I used"
+- to have the guarantee that my model is valid once it is built.
+- to be able to factorize code which manipulate the model.
+- to be able to add convenience methods to guarantee an uniform way to handle my datatype literals.
+- to discover easily what sub elements/other types, I should be able to set in an area (not there yet.)
+- to be able to add methods to take shortcuts leveraging the view model hierarchy -> doing so in the abstract builder classes.
+
+And all of that while being able to easily deploy that on any project, whatever the IDE is used and with a minimal impact on the software build chain.
+
+
 ## What status is this ?
 
 It's only a few hours of work used to prototype and see what could be achieved on Sirius's web **view** model, so I would expect that it would not work well with other Ecores currently (top of my head: it does not filter for derived or non settable features currently).
