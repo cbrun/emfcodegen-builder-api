@@ -91,13 +91,13 @@ Either through the `main()` method or through maven which will handle the retrie
                     <cleanupDaemonThreads>false</cleanupDaemonThreads>
                     <arguments>
                       <!-- the emf configuration file to use for JMerge -->
-						<argument>file:${project.basedir}/src/main/java/fr/obeo/dsl/playground/emfcodegen/builder/emf-merge.xml</argument>
-	                   <!-- the genmodel file -->
-	                   <argument>file:${project.basedir}../path/to/the/file.genmodel</argument>
-	                   <!-- the output folder file -->
-	                	<argument>file:${project.basedir}../path/to/the/folder/to/generate/java/code</argument>
-	                   <!-- package name to use for the generated code -->
-	                	<argument>fr.obeo.dsl.biblio.app.representationsbuilders.builders.test</argument>
+                       <argument>file:${project.basedir}/src/main/java/fr/obeo/dsl/playground/emfcodegen/builder/emf-merge.xml</argument>
+                       <!-- the genmodel file -->
+                       <argument>file:${project.basedir}../path/to/the/file.genmodel</argument>
+                       <!-- the output folder file -->
+                       <argument>file:${project.basedir}../path/to/the/folder/to/generate/java/code</argument>
+                       <!-- package name to use for the generated code -->
+                       <argument>fr.obeo.dsl.biblio.app.representationsbuilders.builders.test</argument>
                     </arguments>
                 </configuration>
 	</plugin>
