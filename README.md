@@ -19,8 +19,8 @@ Example, here applied on the Sirius Web views model to describe a form editor:
 	                            .labelExpression(this.m.asAQL("'number of publications:' + self.eAllContents(biblio::Publication)->size()"))
 	                            .style(this.m.newLabelDescriptionStyle()
 	                                    .bold(true)
-	                                    .validateAndBuild())
-	                            .validateAndBuild() ,
+	                                    .build())
+	                            .build() ,
 	                            this.m.newBarChartDescription()
 	                            .name("publications per shelve")
 	                            .keysExpression(this.m.asAQL("self.eAllContents(biblio::Shelve)"))
@@ -28,10 +28,10 @@ Example, here applied on the Sirius Web views model to describe a form editor:
 	                            .labelExpression(this.m.asAQL("self.name"))
 	                            .style(this.m.newBarChartDescriptionStyle()
 	                                    .barsColor("blue")
-	                                    .validateAndBuild())
-	                            .validateAndBuild())
-	                    .validateAndBuild())
-	            .validateAndBuild();
+	                                    .build())
+	                            .build())
+	                    .build())
+	            .build();
 ```
 
 It generates a `XXXBuilders` class where `XXX` is your Ecore package name, and from there you can create new instances using builders (`YYYBuilder` where `YYY` is the EClass name)
@@ -53,7 +53,8 @@ And all of that while being able to easily deploy that on any project, whatever 
 
 ## What status is this ?
 
-It's only a few hours of work used to prototype and see what could be achieved on Sirius's web **view** model, so I would expect that it would not work well with other Ecores currently (top of my head: it does not filter for derived or non settable features currently).
+It's only a few hours of work used to prototype and see what could be achieved on Sirius's web **view** model, so I would expect that it would not work well with other Ecores currently.
+Also: generated Java formatting is currently not great.
 
 So expect rough edges and most likely the need to adapt the code.
  

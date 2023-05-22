@@ -27,11 +27,13 @@ import org.eclipse.emf.codegen.merge.java.JControlModel;
 import org.eclipse.emf.codegen.merge.java.JMerger;
 import org.eclipse.emf.codegen.merge.java.facade.ast.ASTFacadeHelper;
 import org.eclipse.emf.common.util.URI;
+import org.eclipse.emf.ecore.EcorePackage;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 
+import com.google.common.base.Strings;
 import com.google.common.collect.Iterables;
 
 public class BuilderGenerator {
@@ -60,6 +62,11 @@ public class BuilderGenerator {
 		resourceSet.getResourceFactoryRegistry().getExtensionToFactoryMap()
 				.put(Resource.Factory.Registry.DEFAULT_EXTENSION, new EcoreResourceFactoryImpl());
 		resourceSet.getPackageRegistry().put(GenModelPackage.eNS_URI, GenModelPackage.eINSTANCE);
+		resourceSet.getResources().add(EcorePackage.eINSTANCE.eResource());
+		resourceSet.getURIConverter().getURIMap().put(
+				URI.createURI("platform:/plugin/org.eclipse.emf.ecore/model/Ecore.ecore"),
+				URI.createURI("http://www.eclipse.org/emf/2002/Ecore"));
+		
 		URI uri = URI.createURI("file://" + args[1]);
 		Resource g = resourceSet.getResource(uri, true);
 		BuilderGenerator gen = new BuilderGenerator(args[0], args[2], args[3]);
@@ -91,7 +98,7 @@ public class BuilderGenerator {
 
 			StringBuffer classBody = new StringBuffer();
 			for (GenClass clazz : pak.getGenClasses()) {
-				if (!clazz.isAbstract() && !clazz.isInterface()) {
+				if (!clazz.isAbstract() && !clazz.isInterface() && clazz.hasFactoryInterfaceCreateMethod()) {
 					classBody.append("""
 
 
@@ -125,76 +132,77 @@ public class BuilderGenerator {
 
 				StringBuffer body = new StringBuffer();
 				for (GenFeature feat : clazz.getAllGenFeatures()) {
-					if (!feat.getEcoreFeature().isMany()) {
-						body.append("""
-								/**
-								 * @generated
-								 */
-								  public #builderClassName #featName(#paramType value) {
-								    getBeingBuilt().set#accessor(value);
-								    return this;
-								  }
+					if (!feat.getEcoreFeature().isDerived() && feat.getEcoreFeature().isChangeable()) {
+						if (!feat.getEcoreFeature().isMany()) {
+							body.append("""
+									/**
+									 * #javadoc
+									 * @generated
+									 */
+									  public #builderClassName #featName(#paramType value) {
+									    getBeingBuilt().set#accessor(value);
+									    return this;
+									  }
 
-								""".replace("#builderClassName", builderClasssName(clazz))
-								.replace("#paramType", feat.getType(clazz)).replace("#accessor", feat.getAccessorName())
-								.replace("#featName", feat.getName()));
-					} else {
-						body.append("""
-								  /**
-								   * @generated
-								   */
-								  public #builderClassName #featName(#paramType ... values) {
-								    for (#paramType value : values) {
-								     getBeingBuilt().get#accessor().add(value);
-								    }
-								    return this;
-								  }
+									""".replace("#builderClassName", builderClasssName(clazz))
+									.replace("#paramType", feat.getListItemType(clazz))
+									.replace("#accessor", feat.getAccessorName())
+									.replace("#featName", feat.getSafeName())
+									.replace("#javadoc", Strings.nullToEmpty(feat.getDocumentation())));
+						} else {
+							body.append("""
+									  /**
+									   * #javadoc
+									   * @generated
+									   */
+									  public #builderClassName #featName(#paramType ... values) {
+									    for (#paramType value : values) {
+									     getBeingBuilt().get#accessor().add(value);
+									    }
+									    return this;
+									  }
 
-								""".replace("#builderClassName", builderClasssName(clazz))
-								.replace("#paramType", feat.getListItemType(clazz))
-								.replace("#accessor", feat.getAccessorName()).replace("#featName", feat.getName()));
+									""".replace("#builderClassName", builderClasssName(clazz))
+									.replace("#paramType", feat.getListItemType(clazz))
+									.replace("#accessor", feat.getAccessorName())
+									.replace("#featName", feat.getSafeName())
+									.replace("#javadoc", Strings.nullToEmpty(feat.getDocumentation())));
+						}
 					}
 				}
 
 				if (!clazz.isAbstract()) {
-					body.append(
-						"""
-						 /**
-						  * @generated
-						  */
-						 private #eObjType beingBuilt = #packageFactory.create#eObjName();
+					body.append("""
+							 /**
+							  * @generated
+							  */
+							 private #eObjType beingBuilt = #packageFactory.create#eObjName();
 
-						 /**
-						  * @generated
-						  */
-						 protected #eObjType getBeingBuilt() {
-						   return this.beingBuilt;
-						 }
+							 /**
+							  * @generated
+							  */
+							 protected #eObjType getBeingBuilt() {
+							   return this.beingBuilt;
+							 }
 
-						 /**
-						 * @generated
-						 */
-						 public #eObjType validateAndBuild() {
-						  Diagnostic diag = Diagnostician.INSTANCE.validate(this.getBeingBuilt());
-						  if (diag.getSeverity() == Diagnostic.WARNING) {
-                            System.out.println("WARN" + diag.getMessage());
-                          } else if  (diag.getSeverity() == Diagnostic.ERROR) {
-                            System.err.println("ERR" + diag.getMessage());
-                          }
-						   return this.getBeingBuilt();
-						 }
+							 /**
+							 * @generated
+							 */
+							 public #eObjType build() {							
+							   return this.getBeingBuilt();
+							 }
 
-						"""
-									.replace("#packageFactory",
-											clazz.getGenPackage().getQualifiedEFactoryInstanceAccessor())
-									.replace("#eObjType", clazz.getQualifiedInterfaceName())
-									.replace("#eObjName", clazz.getName()));
+							"""
+							.replace("#packageFactory",
+									clazz.getGenPackage().getQualifiedEFactoryInternalInstanceAccessor())
+							.replace("#eObjType", clazz.getQualifiedInterfaceName())
+							.replace("#eObjName", clazz.capName(clazz.getSafeUncapName())));
 				}
 				StringBuffer out = new StringBuffer();
 				if (clazz.isAbstract()) {
 					out.append("""
 							  package #package;
-							  
+
 							  import org.eclipse.emf.common.util.Diagnostic;
 							  import org.eclipse.emf.ecore.util.Diagnostician;
 							  /**
@@ -211,12 +219,12 @@ public class BuilderGenerator {
 							  }
 
 							""".replace("#builderClassName", builderClasssName(clazz))
-							.replace("#qualifiedType", clazz.getQualifiedInterfaceName()).replace("#classbody", body)
+							.replace("#qualifiedType", qualifiedNameFromGenClass(clazz)).replace("#classbody", body)
 							.replace("#package", getPackageDeclaration(pak)));
 				} else {
 					out.append("""
 							package #package;
-							
+
 							import org.eclipse.emf.common.util.Diagnostic;
 							import org.eclipse.emf.ecore.util.Diagnostician;
 							/**
@@ -228,7 +236,8 @@ public class BuilderGenerator {
 							  }
 
 							""".replace("#builderClassName", builderClasssName(clazz))
-							.replace("#qualifiedType", clazz.getQualifiedInterfaceName()).replace("#classbody", body).replace("#package", getPackageDeclaration(pak)));
+							.replace("#qualifiedType", clazz.getQualifiedInterfaceName()).replace("#classbody", body)
+							.replace("#package", getPackageDeclaration(pak)));
 				}
 				String fileName = builderClasssName(clazz) + ".java";
 				String contentToGenerate = out.toString();
@@ -236,6 +245,11 @@ public class BuilderGenerator {
 			}
 		}
 
+	}
+
+	private String qualifiedNameFromGenClass(GenClass clazz) {
+		// genClass.getTypeParameters()%><%=genClass.getImportedInterfaceName()%><%=genClass.getInterfaceTypeArguments()
+		return clazz.getTypeParameters() + clazz.getImportedInterfaceName() + clazz.getInterfaceTypeArguments();
 	}
 
 	private String getPackageDeclaration(GenPackage pak) {
