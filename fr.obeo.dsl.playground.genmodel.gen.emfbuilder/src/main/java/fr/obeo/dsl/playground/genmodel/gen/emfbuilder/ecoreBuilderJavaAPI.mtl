@@ -8,6 +8,7 @@
 
 [module ecoreBuilderJavaAPI('http://www.eclipse.org/emf/2002/Ecore', 'http://www.eclipse.org/emf/2002/GenModel')/]
 [import fr::obeo::dsl::playground::genmodel::gen::emfbuilder::GenModelServices/]
+
 [comment @main/]
 [template public generateAPI(genModel : genmodel::GenModel)]
 

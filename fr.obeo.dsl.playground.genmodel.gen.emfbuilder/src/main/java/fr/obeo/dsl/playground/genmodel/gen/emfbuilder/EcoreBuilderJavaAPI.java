@@ -54,7 +54,7 @@ import org.eclipse.emf.codegen.ecore.genmodel.GenModelPackage;
  * @author cedric
  * @generated
  */
-public class GenerateBuilderAPIGenerator {
+public class EcoreBuilderJavaAPI {
 
 	/**
 	 * The {@link List} of resources to load.
@@ -79,7 +79,7 @@ public class GenerateBuilderAPIGenerator {
 	 *            the target folder for the generation
 	 * @generated
 	 */
-	public GenerateBuilderAPIGenerator(List<String> resources, String target) {
+	public EcoreBuilderJavaAPI(List<String> resources, String target) {
 		this.resources = resources;
 		this.target = target;
 	}
@@ -98,7 +98,7 @@ public class GenerateBuilderAPIGenerator {
 				resources.add(resource.trim());
 			}
 			final String target = args[1];
-			final GenerateBuilderAPIGenerator generator = new GenerateBuilderAPIGenerator(resources, target);
+			final EcoreBuilderJavaAPI generator = new EcoreBuilderJavaAPI(resources, target);
 			generator.generate();
 		} else {
 			printUsage();
@@ -231,7 +231,7 @@ public class GenerateBuilderAPIGenerator {
 	 * @generated
 	 */
 	protected String getModuleQualifiedName() {
-		return "fr::obeo::dsl::playground::genmodel::gen::emfbuilder::generateBuilderAPI";
+		return "fr::obeo::dsl::playground::genmodel::gen::emfbuilder::ecoreBuilderJavaAPI";
 	}
 
 	/**
