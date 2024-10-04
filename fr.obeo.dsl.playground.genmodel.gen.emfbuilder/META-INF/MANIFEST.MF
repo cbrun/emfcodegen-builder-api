@@ -1,0 +1,12 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Emfbuilder
+Bundle-SymbolicName: fr.obeo.dsl.playground.genmodel.gen.emfbuilder
+Bundle-Version: 1.0.0.qualifier
+Bundle-ClassPath: .
+Export-Package: fr.obeo.dsl.playground.genmodel.gen.emfbuilder
+Require-Bundle: org.eclipse.emf.codegen.ecore,
+ org.eclipse.acceleo.query,
+ org.eclipse.acceleo.aql
+Bundle-RequiredExecutionEnvironment: JavaSE-17
+Automatic-Module-Name: fr.obeo.dsl.playground.genmodel.gen.emfbuilder

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ecore:EPackage xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" name="guesstimate" nsURI="http://www.obeo.fr/guesstimate" nsPrefix="guesstimate">
+  <eClassifiers xsi:type="ecore:EClass" name="Variable">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="settingsAreValid nameIsValid"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The variable name. Must respect the rules of a programming language identifier."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="documentation" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Any human readable description."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="definition" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="A shortcut in natural language to set the distribution kind and its parameters."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="#//VariableType"
+        defaultValueLiteral="normal"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="distribution" eType="#//DistributionSetting"
+        containment="true"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DistributionSetting" abstract="true"
+      interface="true"/>
+  <eClassifiers xsi:type="ecore:EClass" name="NormalDistribution" eSuperTypes="#//DistributionSetting">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The normal distribution is a continuous probability distribution that is symmetrical around its mean, forming a bell-shaped curve. It's defined by the mean (µ) and standard deviation (σ), with most data points falling close to the mean and probabilities tapering off equally in both directions. Use it for modeling natural phenomena like heights, test scores, or any situation where the Central Limit Theorem applies, such as averaging a large number of independent variables."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mean" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The mean is the central value of the normal distribution, representing the average or expected value. It is the point around which the data is symmetrically distributed. In a dataset of people's heights, for example, the mean height is the average height of all individuals in the dataset."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sd" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        defaultValueLiteral="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The standard deviation (σ) measures the spread or dispersion of the distribution. It indicates how much the individual data points deviate from the mean. A smaller σ means the data points are closer to the mean, while a larger σ means they are more spread out. In the context of heights, a smaller standard deviation indicates that most people have heights close to the average, whereas a larger standard deviation indicates more variability in heights."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="LogNormalDistribution" eSuperTypes="#//DistributionSetting">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The lognormal distribution is a continuous probability distribution where the logarithm of the variable follows a normal distribution. Defined by the mean (µ) and standard deviation (σ) of the variable's natural logarithm, it is right-skewed and suitable for modeling data that grows multiplicatively, such as stock prices, investment returns, and the sizes of biological organisms."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scale" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        defaultValueLiteral="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The scale parameter (σ) is the standard deviation of the natural logarithm of the variable. It measures the spread or dispersion of the distribution in the log-transformed scale. A higher σ indicates more variability in the data. Using the stock prices example, calculating the standard deviation of the logarithms of the prices gives you the scale.."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="shape" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        defaultValueLiteral="0">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The location parameter is the mean of the natural logarithm of the variable. It represents the central tendency of the distribution in the log-transformed scale. For instance, if you have data on the prices of stocks, taking the natural logarithm of these prices and finding the average will give you the shape."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="UniformDistribution" eSuperTypes="#//DistributionSetting">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The uniform distribution is a continuous probability distribution where all outcomes are equally likely within a specified range, defined by minimum (a) and maximum (b) values. This distribution forms a flat, rectangular shape and is ideal for modeling scenarios with equally likely outcomes, like generating random numbers or simulating the roll of a fair die."/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="minMaxAreConsistent"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="min" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The minimum value is the lowest possible outcome in the uniform distribution. It represents the lower bound of the range over which all outcomes are equally likely. For example, if you are generating random numbers between 1 and 10, the minimum value (a) would be 1."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="max" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        defaultValueLiteral="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The maximum value (b) is the highest possible outcome in the uniform distribution. It sets the upper limit of the range where all outcomes are equally likely. In the same example of generating random numbers between 1 and 10, the maximum value (b) would be 10."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BetaDistribution" eSuperTypes="#//DistributionSetting">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The beta distribution is a continuous probability distribution defined on the interval [0, 1], often used to model probabilities themselves. With two shape parameters, α (alpha) and β (beta), it can take various forms (uniform, U-shaped, etc.), making it useful for modeling the probability of success in Bernoulli trials when the probability is not fixed, or in Bayesian statistics as a conjugate prior for binomial proportions."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alpha" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        defaultValueLiteral="2">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Alpha (α) is a shape parameter that influences the distribution's shape. It is a positive real number that determines the skewness of the distribution. A higher value of α, when paired with a lower value of β, will skew the distribution to the right, indicating that higher probabilities are more likely. For instance, if you are modeling the probability of success in a series of trials, a higher α might suggest that success is relatively more frequent."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="beta" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        defaultValueLiteral="2">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="Beta (β) is another shape parameter that, like alpha, influences the shape of the distribution. It is also a positive real number. When β is higher relative to α, the distribution skews to the left, indicating that lower probabilities are more likely. Together with α, β defines the shape and scale of the beta distribution. For example, a higher β might indicate that failure is more frequent in a series of trials."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="TriangularDistribution" eSuperTypes="#//DistributionSetting">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The triangular distribution is a continuous probability distribution with a triangular-shaped probability density function, defined by three parameters: the minimum value (a), the maximum value (b), and the mode (c), which is the peak of the triangle. It is used when the exact distribution of data is unknown but a rough estimate with a known minimum, maximum, and most likely value can be provided. Common applications include project management for estimating the duration of tasks and in decision-making scenarios where limited sample data is available."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="min" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        defaultValueLiteral="0">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The minimum value (a) is the lowest possible outcome in the triangular distribution. It represents the lower bound of the data range and ensures that no values in the distribution fall below this point. For example, if you are estimating the time to complete a task and the least amount of time it could take is 2 hours, then the minimum value (a) would be 2."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="max" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        defaultValueLiteral="1">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The maximum value (b) is the highest possible outcome in the triangular distribution. It sets the upper limit of the data range, ensuring that no values exceed this point. For instance, if the most time it could take to complete the task is 10 hours, then the maximum value (b) would be 10."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mode" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        defaultValueLiteral="0.5">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The mode (c) is the most likely outcome within the range of the triangular distribution. It represents the peak of the triangle and is the value where the probability density is highest. In the context of task completion time, if the most likely time to complete the task is 5 hours, then the mode (c) would be 5. The mode must lie between the minimum (a) and maximum (b) values."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="BinomialDistribution" eSuperTypes="#//DistributionSetting">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The binomial distribution is a discrete probability distribution that describes the number of successes in a fixed number of independent Bernoulli trials, each with the same probability of success (p). Defined by the number of trials (n) and probability of success (p), it is ideal for scenarios like modeling the number of heads in a series of coin tosses or the number of defective items in a batch of products."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="trials" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="10">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The number of trials (n) in a binomial distribution is a positive integer representing the total number of independent and identical Bernoulli trials conducted. Each trial is an experiment or process with exactly two possible outcomes: success or failure. For example, in a scenario where you flip a coin 10 times, the number of trials (n) would be 10."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="p" eType="#//Percentage"
+        defaultValueLiteral="0.5">
+      <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+        <details key="documentation" value="The probability of success (p) is a value between 0 and 1, representing the likelihood of achieving a success in each individual trial. This probability remains constant across all trials. For instance, if you are rolling a die and interested in the probability of rolling a 4, the probability of success (p) would be 1/6. In the context of a coin flip, if you define heads as a success, the probability of success (p) would be 0.5 (assuming a fair coin)."/>
+      </eAnnotations>
+    </eStructuralFeatures>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="FormulaSetting" eSuperTypes="#//DistributionSetting">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="A variable which is defined by a formula using other variables."/>
+    </eAnnotations>
+    <eAnnotations source="http://www.eclipse.org/emf/2002/Ecore">
+      <details key="constraints" value="unknownVariable invalidSyntax"/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="formula" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="inputs" upperBound="-1"
+        eType="#//Variable" eKeys="#//Variable/name"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="VariableType">
+    <eLiterals name="computed"/>
+    <eLiterals name="formula" value="1"/>
+    <eLiterals name="normal" value="10"/>
+    <eLiterals name="uniform" value="11"/>
+    <eLiterals name="lognormal" value="12"/>
+    <eLiterals name="beta" value="13"/>
+    <eLiterals name="triangular" value="14"/>
+    <eLiterals name="binomial" value="15"/>
+    <eLiterals name="poisson" value="16"/>
+    <eLiterals name="exponential" value="17"/>
+    <eLiterals name="gamma" value="18"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="Sheet">
+    <eOperations name="resample"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="variables" upperBound="-1"
+        eType="#//Variable" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="sampleSize" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"
+        defaultValueLiteral="10000"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PoissonDistribution" eSuperTypes="#//DistributionSetting">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The Poisson distribution is a discrete probability distribution that expresses the probability of a given number of events occurring in a fixed interval of time or space. Defined by the rate parameter (λ), it is suitable for modeling count data, such as the number of emails received per hour or the number of accidents at a traffic intersection in a day."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="p" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        defaultValueLiteral="1"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="epsilon" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ExponentialDistribution" eSuperTypes="#//DistributionSetting">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The exponential distribution is a continuous probability distribution often used to model the time between events in a Poisson process. Characterized by the rate parameter (λ), it has a peak at zero and a long tail extending to the right. Common applications include modeling waiting times, such as the time between arrivals in a queue or the lifespan of products."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="mean" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        defaultValueLiteral="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="GammaDistribution" eSuperTypes="#//DistributionSetting">
+    <eAnnotations source="http://www.eclipse.org/emf/2002/GenModel">
+      <details key="documentation" value="The gamma distribution is a continuous probability distribution that generalizes the exponential distribution by allowing the rate parameter to be variable. Defined by shape (k) and scale (θ) parameters, it is useful for modeling waiting times with multiple stages, such as the time until the k-th event in a queuing process."/>
+    </eAnnotations>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="shape" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        defaultValueLiteral="2"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="scale" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EDouble"
+        defaultValueLiteral="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EDataType" name="Percentage" instanceClassName="java.lang.Double"/>
+</ecore:EPackage>

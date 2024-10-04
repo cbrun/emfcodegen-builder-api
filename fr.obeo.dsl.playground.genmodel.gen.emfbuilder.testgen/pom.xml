@@ -1,0 +1,30 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>fr.obeo.dsl.playground.genmodel.gen.emfbuilder</groupId>
+    <artifactId>fr.obeo.dsl.playground.genmodel.gen.emfbuilder.testgen</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/eclipse-syson/syson</url>
+        </repository>
+    </distributionManagement>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>org.eclipse.syson</groupId>
+            <artifactId>syson-sysml-metamodel</artifactId>
+            <version>2024.9.0</version>
+        </dependency>
+        <dependency>
+            <groupId>fr.obeo.dsl.guesstimate</groupId>
+            <artifactId>fr.obeo.dsl.guesstimate</artifactId>
+            <version>2022.9.0</version>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<launchConfiguration type="org.eclipse.acceleo.aql.ls.debug.ide.launchConfigurationType">
+    <stringAttribute key="destination" value="/fr.obeo.dsl.playground.genmodel.gen.emfbuilder.testgen/src/main/java"/>
+    <stringAttribute key="model" value="/fr.obeo.dsl.playground.genmodel.gen.emfbuilder.testgen/src/main/resources/uml2/UML.genmodel"/>
+    <stringAttribute key="module" value="/fr.obeo.dsl.playground.genmodel.gen.emfbuilder/src/fr/obeo/dsl/playground/genmodel/gen/emfbuilder/ecoreBuilderJavaAPI.mtl"/>
+    <stringAttribute key="options" value="{&quot;newLine&quot;:&quot;\n&quot;,&quot;logURI&quot;:&quot;acceleo.log&quot;}"/>
+    <booleanAttribute key="org.eclipse.debug.core.ATTR_FORCE_SYSTEM_CONSOLE_ENCODING" value="false"/>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
+        <listEntry value="/fr.obeo.dsl.playground.genmodel.gen.emfbuilder/src/fr/obeo/dsl/playground/genmodel/gen/emfbuilder/ecoreBuilderJavaAPI.mtl"/>
+    </listAttribute>
+    <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
+        <listEntry value="1"/>
+    </listAttribute>
+    <booleanAttribute key="org.eclipse.lsp4e.debug.model.ATTR_CUSTOM_LAUNCH_PARAMS" value="true"/>
+    <stringAttribute key="org.eclipse.lsp4e.debug.model.ATTR_DSP_MODE" value="connect to server"/>
+    <booleanAttribute key="org.eclipse.lsp4e.debug.model.ATTR_DSP_MONITOR_ADAPTER" value="true"/>
+    <stringAttribute key="org.eclipse.lsp4e.debug.model.ATTR_DSP_PARAM" value="{&quot;module&quot;:&quot;file:/home/cedric/spaces/syson/fr.obeo.dsl.playground.genmodel.gen.emfbuilder/src/fr/obeo/dsl/playground/genmodel/gen/emfbuilder/ecoreBuilderJavaAPI.mtl&quot;,&quot;model&quot;:&quot;file:/home/cedric/spaces/syson/fr.obeo.dsl.playground.genmodel.gen.emfbuilder.testgen/src/main/resources/uml2/UML.genmodel&quot;,&quot;destination&quot;:&quot;file:/home/cedric/spaces/syson/fr.obeo.dsl.playground.genmodel.gen.emfbuilder.testgen/src/main/java/&quot;,&quot;options&quot;:&quot;{\&quot;newLine\&quot;:\&quot;\\n\&quot;,\&quot;logURI\&quot;:\&quot;acceleo.log\&quot;}&quot;}"/>
+    <stringAttribute key="org.eclipse.lsp4e.debug.model.ATTR_DSP_SERVER_HOST" value="127.0.0.1"/>
+    <intAttribute key="org.eclipse.lsp4e.debug.model.ATTR_DSP_SERVER_PORT" value="40153"/>
+</launchConfiguration>

@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel"
+    modelDirectory="/fr.obeo.dsl.guesstimate/src-gen" creationIcons="false"
+    editDirectory="/fr.obeo.dsl.guesstimate.edit/src-gen" editorDirectory="/fr.obeo.dsl.guesstimate.editor/src-gen"
+    modelPluginID="fr.obeo.dsl.guesstimate" modelName="Guesstimate" modelPluginClass="fr.obeo.dsl.guesstimate.GuesstimateEMFPlugin"
+    rootExtendsClass="org.eclipse.emf.ecore.impl.MinimalEObjectImpl$Container" codeFormatting="true"
+    importerID="org.eclipse.emf.importer.ecore" complianceLevel="5.0" suppressGenModelAnnotations="false"
+    copyrightFields="false" operationReflection="true" importOrganizing="true">
+  <foreignModel>guesstimate.ecore</foreignModel>
+  <testsDirectory xsi:nil="true"/>
+  <genPackages prefix="Guesstimate" basePackage="fr.obeo.dsl" disposableProviderFactory="true"
+      extensibleProviderFactory="true" childCreationExtenders="true" ecorePackage="guesstimate.ecore#/">
+    <genEnums typeSafeEnumCompatible="false" ecoreEnum="guesstimate.ecore#//VariableType">
+      <genEnumLiterals ecoreEnumLiteral="guesstimate.ecore#//VariableType/computed"/>
+      <genEnumLiterals ecoreEnumLiteral="guesstimate.ecore#//VariableType/formula"/>
+      <genEnumLiterals ecoreEnumLiteral="guesstimate.ecore#//VariableType/normal"/>
+      <genEnumLiterals ecoreEnumLiteral="guesstimate.ecore#//VariableType/uniform"/>
+      <genEnumLiterals ecoreEnumLiteral="guesstimate.ecore#//VariableType/lognormal"/>
+      <genEnumLiterals ecoreEnumLiteral="guesstimate.ecore#//VariableType/beta"/>
+      <genEnumLiterals ecoreEnumLiteral="guesstimate.ecore#//VariableType/triangular"/>
+      <genEnumLiterals ecoreEnumLiteral="guesstimate.ecore#//VariableType/binomial"/>
+      <genEnumLiterals ecoreEnumLiteral="guesstimate.ecore#//VariableType/poisson"/>
+      <genEnumLiterals ecoreEnumLiteral="guesstimate.ecore#//VariableType/exponential"/>
+      <genEnumLiterals ecoreEnumLiteral="guesstimate.ecore#//VariableType/gamma"/>
+    </genEnums>
+    <genDataTypes ecoreDataType="guesstimate.ecore#//Percentage"/>
+    <genClasses ecoreClass="guesstimate.ecore#//Variable">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//Variable/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//Variable/documentation"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//Variable/definition"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//Variable/type"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guesstimate.ecore#//Variable/distribution"/>
+    </genClasses>
+    <genClasses image="false" ecoreClass="guesstimate.ecore#//DistributionSetting"/>
+    <genClasses ecoreClass="guesstimate.ecore#//NormalDistribution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//NormalDistribution/mean"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//NormalDistribution/sd"/>
+    </genClasses>
+    <genClasses ecoreClass="guesstimate.ecore#//LogNormalDistribution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//LogNormalDistribution/scale"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//LogNormalDistribution/shape"/>
+    </genClasses>
+    <genClasses ecoreClass="guesstimate.ecore#//UniformDistribution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//UniformDistribution/min"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//UniformDistribution/max"/>
+    </genClasses>
+    <genClasses ecoreClass="guesstimate.ecore#//BetaDistribution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//BetaDistribution/alpha"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//BetaDistribution/beta"/>
+    </genClasses>
+    <genClasses ecoreClass="guesstimate.ecore#//TriangularDistribution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//TriangularDistribution/min"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//TriangularDistribution/max"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//TriangularDistribution/mode"/>
+    </genClasses>
+    <genClasses ecoreClass="guesstimate.ecore#//BinomialDistribution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//BinomialDistribution/trials"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//BinomialDistribution/p"/>
+    </genClasses>
+    <genClasses ecoreClass="guesstimate.ecore#//FormulaSetting">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//FormulaSetting/formula"/>
+      <genFeatures notify="false" createChild="false" propertySortChoices="true" ecoreFeature="ecore:EReference guesstimate.ecore#//FormulaSetting/inputs"/>
+    </genClasses>
+    <genClasses ecoreClass="guesstimate.ecore#//Sheet">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference guesstimate.ecore#//Sheet/variables"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//Sheet/sampleSize"/>
+      <genOperations ecoreOperation="guesstimate.ecore#//Sheet/resample"/>
+    </genClasses>
+    <genClasses ecoreClass="guesstimate.ecore#//PoissonDistribution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//PoissonDistribution/p"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//PoissonDistribution/epsilon"/>
+    </genClasses>
+    <genClasses ecoreClass="guesstimate.ecore#//ExponentialDistribution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//ExponentialDistribution/mean"/>
+    </genClasses>
+    <genClasses ecoreClass="guesstimate.ecore#//GammaDistribution">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//GammaDistribution/shape"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute guesstimate.ecore#//GammaDistribution/scale"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>
